@@ -3,14 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { AttendanceComponent } from './modules/attendance/attendance/attendance.component';
+import { DummyLoginComponent } from './modules/dummy-login/dummy-login.component';
 
+import { LeaveComponent } from './modules/leave/leave/leave.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AttendanceComponent,
+    DummyLoginComponent,
+    LeaveComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
