@@ -1,0 +1,16 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #007bff, #6610f2);
+}
+
+.login-card {
+  width: 400px;
+  border-radius: 12px;
+}
+
+.login-card h3 {
+  font-weight: 600;
+}

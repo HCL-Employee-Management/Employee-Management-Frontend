@@ -1,1 +1,98 @@
-<p>attendance works!</p>
+<div class="container mt-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary fw-bold">Attendance Dashboard</h2>
+    <button class="btn btn-outline-dark" (click)="switchUser()">
+      Switch User
+    </button>
+  </div>
+<button class="btn btn-outline-primary" routerLink="/leave">
+  Leave Management
+</button>
+  <!-- Employee Info + Today Status -->
+  <div class="card shadow-sm p-4 mb-4">
+    <div class="row text-center">
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Employee ID</h6>
+        <h5>{{ employeeId }}</h5>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Today Status</h6>
+        <span 
+          class="badge px-3 py-2"
+          [ngClass]="{
+            'bg-success': todayStatus === 'Present',
+            'bg-warning': todayStatus === 'Logged In',
+            'bg-danger': todayStatus === 'Absent'
+          }">
+          {{ todayStatus }}
+        </span>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Attendance % (This Month)</h6>
+        <h4 class="text-success">{{ attendancePercentage }}%</h4>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="card shadow p-4 mb-4">
+    <div class="row text-center">
+      <div class="col-md-6 mb-3">
+        <button 
+          class="btn btn-success w-100 py-3"
+          [disabled]="todayStatus !== 'Absent'"
+          (click)="login()">
+          Mark Login
+        </button>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <button 
+          class="btn btn-danger w-100 py-3"
+          [disabled]="todayStatus !== 'Logged In'"
+          (click)="logout()">
+          Mark Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attendance History -->
+  <div class="card shadow-sm p-4">
+    <h5 class="mb-3">Attendance History</h5>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Date</th>
+            <th>Login</th>
+            <th>Logout</th>
+            <th>Total Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of attendanceList">
+            <td>{{ record.date | date:'dd-MM-yyyy' }}</td>
+            <td>{{ record.loginTime | date:'shortTime' }}</td>
+            <td>{{ record.logoutTime | date:'shortTime' }}</td>
+            <td>
+              <span *ngIf="record.totalHours; else dash">
+                {{ record.totalHours | number:'1.2-2' }}
+              </span>
+              <ng-template #dash>-</ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
