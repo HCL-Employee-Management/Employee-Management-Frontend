@@ -21,4 +21,17 @@ export class LeaveService {
   getLeaveHistory(employeeId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/employee/${employeeId}`);
   }
+
+
+  getAllLeaves() {
+  return this.http.get<any[]>(`${this.baseUrl}/all`);
+}
+
+approveLeave(id: number) {
+  return this.http.put(`${this.baseUrl}/approve/${id}`, {});
+}
+
+rejectLeave(id: number) {
+  return this.http.put(`${this.baseUrl}/reject/${id}`, {});
+}
 }

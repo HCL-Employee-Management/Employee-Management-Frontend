@@ -1,0 +1,117 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Admin Leave Dashboard</h2>
+
+  <!-- Summary Cards -->
+  <div class="row mb-4">
+
+    <div class="col-md-3">
+      <div class="card shadow p-3 text-center">
+        <h6>Total Requests</h6>
+        <h3>{{ totalLeaves }}</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow p-3 text-center bg-warning text-white">
+        <h6>Pending</h6>
+        <h3>{{ pendingCount }}</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow p-3 text-center bg-success text-white">
+        <h6>Approved</h6>
+        <h3>{{ approvedCount }}</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow p-3 text-center bg-danger text-white">
+        <h6>Rejected</h6>
+        <h3>{{ rejectedCount }}</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Leave Table -->
+  <h5 class="mb-3 text-warning">New Leave Requests</h5>
+
+<table class="table table-bordered table-striped text-center">
+
+  <thead class="table-dark">
+    <tr>
+      <th>Employee</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Reason</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let leave of leaveList"
+        [hidden]="leave.status !== 'Pending'">
+
+      <td>{{ leave.employeeName }}</td>
+      <td>{{ leave.fromDate | date }}</td>
+      <td>{{ leave.toDate | date }}</td>
+      <td>{{ leave.reason }}</td>
+
+      <td>
+        <button class="btn btn-success btn-sm me-2"
+          (click)="approve(leave.leaveId)">
+          Approve
+        </button>
+
+        <button class="btn btn-danger btn-sm"
+          (click)="reject(leave.leaveId)">
+          Reject
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+
+</table>
+<h5 class="mb-3">Processed Leaves (Approved / Rejected)</h5>
+
+<table class="table table-bordered table-striped text-center mb-4"
+       *ngIf="approvedCount > 0 || rejectedCount > 0">
+
+  <thead class="table-dark">
+    <tr>
+      <th>Employee</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Reason</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let leave of leaveList"
+        [hidden]="leave.status === 'Pending'">
+
+      <td>{{ leave.employeeName }}</td>
+      <td>{{ leave.fromDate | date }}</td>
+      <td>{{ leave.toDate | date }}</td>
+      <td>{{ leave.reason }}</td>
+
+      <td>
+        <span class="badge"
+          [ngClass]="{
+            'bg-success': leave.status === 'Approved',
+            'bg-danger': leave.status === 'Rejected'
+          }">
+          {{ leave.status }}
+        </span>
+      </td>
+
+    </tr>
+  </tbody>
+
+</table>
+
+</div>
