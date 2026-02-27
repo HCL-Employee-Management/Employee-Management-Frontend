@@ -1,1 +1,51 @@
-<p>dashboard works!</p>
+<div class="page">
+  <h2>Welcome back, Admin 👋</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Total Employees</h4>
+      <h2>{{totalEmployees}}</h2>
+    </div>
+
+    <div class="card">
+      <h4>Present Today</h4>
+      <h2>{{presentToday}}</h2>
+    </div>
+
+    <div class="card">
+      <h4>Pending Leaves</h4>
+      <h2>{{pendingLeaves}}</h2>
+    </div>
+
+    <div class="card">
+      <h4>Salary Disbursed</h4>
+      <h2>₹{{salaryPaid | number}}</h2>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-card">
+      <h3>Attendance Rate</h3>
+      <h1>{{attendancePercentage}}%</h1>
+      <div class="bar">
+        <div class="fill" [style.width.%]="attendancePercentage"></div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <h3>Leave Approval</h3>
+      <h1>{{leaveApprovalPercentage}}%</h1>
+      <div class="bar">
+        <div class="fill" [style.width.%]="leaveApprovalPercentage"></div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <h3>Salary Paid</h3>
+      <h1>{{salaryPercentage}}%</h1>
+      <div class="bar">
+        <div class="fill" [style.width.%]="salaryPercentage"></div>
+      </div>
+    </div>
+  </div>
+</div>

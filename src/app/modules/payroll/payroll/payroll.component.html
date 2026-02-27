@@ -1,1 +1,27 @@
-<p>payroll works!</p>
+<div class="page">
+  <h2>Payroll Management</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Basic</th>
+        <th>Leaves</th>
+        <th>Deduction</th>
+        <th>Bonus</th>
+        <th>Net</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let p of payrollList">
+        <td>{{p.employeeId}}</td>
+        <td>₹{{p.basicSalary | number}}</td>
+        <td>{{p.leaveDays}}</td>
+        <td class="red">-₹{{p.deduction | number}}</td>
+        <td class="green">+₹{{p.bonus | number}}</td>
+        <td><b>₹{{p.netSalary | number}}</b></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

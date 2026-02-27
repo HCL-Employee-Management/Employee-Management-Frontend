@@ -1,0 +1,29 @@
+.page {
+  margin-left: 240px;
+  padding: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f5f7fa;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+thead {
+  background: #e4e7ec;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}

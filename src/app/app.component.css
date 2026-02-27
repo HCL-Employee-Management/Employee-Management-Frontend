@@ -1,0 +1,14 @@
+.sidebar {
+  width: 220px;
+  height: 100vh;
+}
+.content {
+  background-color: #f4f6f9;
+  min-height: 100vh;
+}
+.card {
+  border-radius: 12px;
+}
+.progress {
+  height: 8px;
+}
