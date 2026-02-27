@@ -23,7 +23,11 @@ export class AttendanceService {
   getAttendanceHistory(employeeId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/employee/${employeeId}`);
   }
-
+  getTodayAttendance() {
+  return this.http.get<any[]>(
+    `${this.baseUrl}/today`
+  );
+}
   getAttendancePercentage(employeeId: number, month: number, year: number): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/percentage?employeeId=${employeeId}&month=${month}&year=${year}`
