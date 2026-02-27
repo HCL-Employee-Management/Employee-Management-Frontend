@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./attendance.component.css']
 })
 export class AttendanceComponent implements OnInit {
-
+  presentDays: number = 0;
   employeeId!: number;
   attendanceList: any[] = [];
   attendancePercentage: number = 0;
@@ -51,13 +51,19 @@ export class AttendanceComponent implements OnInit {
   }
 
   loadHistory() {
-    this.attendanceService
-      .getAttendanceHistory(this.employeeId)
-      .subscribe(data => {
-        this.attendanceList = data;
-        this.setTodayStatus();
-      });
-  }
+  this.attendanceService
+    .getAttendanceHistory(this.employeeId)
+    .subscribe(data => {
+      this.attendanceList = data;
+      this.calculatePresentDays();
+      this.setTodayStatus();
+    });
+}
+calculatePresentDays() {
+  this.presentDays = this.attendanceList.filter(
+    x => x.logoutTime
+  ).length;
+}
 
   loadPercentage() {
     const today = new Date();
