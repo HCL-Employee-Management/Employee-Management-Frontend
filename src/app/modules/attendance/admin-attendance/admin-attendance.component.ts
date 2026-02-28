@@ -35,15 +35,32 @@ calculateSummary() {
   this.totalEmployees = this.attendanceList.length;
 
   this.presentCount = this.attendanceList.filter(
-    x => x.loginTime
+    x => x.status === 'Present' || x.status === 'Logged Out'
   ).length;
 
-  this.absentCount =
-    this.totalEmployees - this.presentCount;
+  this.absentCount = this.attendanceList.filter(
+    x => x.status === 'Absent'
+  ).length;
+
+  this.onLeaveCount = this.attendanceList.filter(
+    x => x.status === 'On Leave'
+  ).length;
+
+  const halfDayCount = this.attendanceList.filter(
+    x => x.status === 'Half Day'
+  ).length;
+
+  const loggedInCount = this.attendanceList.filter(
+    x => x.status === 'Logged In'
+  ).length;
 
   this.attendancePercentage =
     this.totalEmployees > 0
-      ? Math.round((this.presentCount / this.totalEmployees) * 100)
+      ? Math.round(
+          ((this.presentCount +
+            (halfDayCount * 0.5) +
+            (loggedInCount * 0.5)) / this.totalEmployees) * 100
+        )
       : 0;
 }
 }

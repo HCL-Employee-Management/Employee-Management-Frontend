@@ -1,90 +1,96 @@
 <div class="container mt-4">
 
-  <h2 class="mb-4">Admin Attendance Dashboard</h2>
+  <h2 class="mb-2">Admin Attendance Dashboard</h2>
+  <p class="text-muted mb-3">Monitor today’s employee attendance</p>
 
   <!-- Summary Cards -->
-  <div class="row mb-4">
+  <div class="row mb-3">
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center">
-        <h6>Total Employees</h6>
-        <h3>{{ totalEmployees }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center small-card">
+        <h6 class="mb-1">Total Employees</h6>
+        <h4 class="fw-bold mb-0">{{ totalEmployees }}</h4>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center bg-success text-white">
-        <h6>Present</h6>
-        <h3>{{ presentCount }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center bg-success text-white small-card">
+        <h6 class="mb-1">Present</h6>
+        <h4 class="fw-bold mb-0">{{ presentCount }}</h4>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center bg-danger text-white">
-        <h6>Absent</h6>
-        <h3>{{ absentCount }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center bg-danger text-white small-card">
+        <h6 class="mb-1">Absent</h6>
+        <h4 class="fw-bold mb-0">{{ absentCount }}</h4>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center bg-warning text-white">
-        <h6>On Leave</h6>
-        <h3>{{ onLeaveCount }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center bg-warning text-white small-card">
+        <h6 class="mb-1">On Leave</h6>
+        <h4 class="fw-bold mb-0">{{ onLeaveCount }}</h4>
       </div>
     </div>
 
   </div>
 
   <!-- Percentage -->
-  <div class="card shadow p-4 mb-4 text-center">
-    <h5>Today's Attendance Percentage</h5>
-    <h2>{{ attendancePercentage }}%</h2>
+  <div class="card shadow-sm p-3 mb-4 text-center small-card">
+    <h6 class="text-muted mb-1">Today's Attendance Percentage</h6>
+    <h4 class="fw-bold mb-0">{{ attendancePercentage }}%</h4>
   </div>
 
   <!-- Attendance Table -->
-  <div class="card shadow p-4">
+  <div class="card shadow-sm p-3">
     <h5 class="mb-3">Today Attendance List</h5>
 
-    <table class="table table-bordered table-striped text-center">
-      <thead class="table-dark">
-        <tr>
-          <th>Employee Name</th>
-          <th>Login Time</th>
-          <th>Logout Time</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm text-center align-middle compact-table">
 
-      <tbody>
-        <tr *ngFor="let record of attendanceList">
+        <thead class="table-dark">
+          <tr>
+            <th>Employee Name</th>
+            <th>Login Time</th>
+            <th>Logout Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
 
-          <td>{{ record.employeeName }}</td>
+        <tbody>
+          <tr *ngFor="let record of attendanceList">
 
-          <td>{{ record.loginTime | date:'shortTime' }}</td>
+            <td>{{ record.employeeName }}</td>
 
-          <td>{{ record.logoutTime | date:'shortTime' }}</td>
+            <td>
+  {{ record.loginTime ? (record.loginTime | date:'shortTime') : '----' }}
+</td>
 
-          <td>
-            <span class="badge"
-              [ngClass]="{
-                'bg-success': record.logoutTime,
-                'bg-warning': record.loginTime && !record.logoutTime,
-                'bg-danger': !record.loginTime
-              }">
+<td>
+  {{ record.logoutTime ? (record.logoutTime | date:'shortTime') : '----' }}
+</td>
 
-              {{
-                record.logoutTime ? 'Present' :
-                record.loginTime ? 'Logged In' :
-                'Absent'
-              }}
+            <td>
+              <span class="badge"
+  [ngClass]="{
+    'bg-success': record.status === 'Present' || record.status === 'Logged Out',
+    'bg-warning': record.status === 'Half Day' || record.status === 'Logged In',
+    'bg-danger': record.status === 'Absent',
+    'bg-primary': record.status === 'On Leave'
+  }">
 
-            </span>
-          </td>
+  {{ record.status }}
 
-        </tr>
-      </tbody>
+</span>
+            </td>
 
-    </table>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
   </div>
 
 </div>

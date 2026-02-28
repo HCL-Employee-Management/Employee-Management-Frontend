@@ -2,16 +2,56 @@
   border-radius: 12px;
 }
 
-button {
-  font-weight: 600;
-  font-size: 16px;
+/* Smaller summary cards */
+.small-card h4 {
+  font-size: 20px;
 }
 
+.small-card h6 {
+  font-size: 13px;
+}
+
+/* Slim action card */
+.action-card {
+  border-radius: 12px;
+}
+
+/* Buttons */
+button {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Table header */
 .table th {
   background-color: #212529;
   color: white;
 }
 
+/* Badges */
 .badge {
-  font-size: 14px;
+  font-size: 13px;
+  padding: 6px 10px;
+}
+/* Compact Table */
+.compact-table th,
+.compact-table td {
+  padding: 6px 8px !important;
+  font-size: 13px;
+}
+
+.compact-table th {
+  background-color: #212529;
+  color: white;
+  font-weight: 600;
+}
+
+.compact-table tbody tr {
+  height: 38px;
+}
+
+/* Smaller badge inside table */
+.compact-table .badge {
+  font-size: 12px;
+  padding: 4px 8px;
 }

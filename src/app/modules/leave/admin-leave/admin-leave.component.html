@@ -1,117 +1,130 @@
 <div class="container mt-4">
 
-  <h2 class="mb-4">Admin Leave Dashboard</h2>
+  <h2 class="mb-2">Admin Leave Dashboard</h2>
+  <p class="text-muted mb-3">Manage employee leave requests</p>
 
   <!-- Summary Cards -->
-  <div class="row mb-4">
+  <div class="row mb-3">
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center">
-        <h6>Total Requests</h6>
-        <h3>{{ totalLeaves }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center small-card">
+        <h6 class="mb-1">Total Requests</h6>
+        <h4 class="fw-bold mb-0">{{ totalLeaves }}</h4>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center bg-warning text-white">
-        <h6>Pending</h6>
-        <h3>{{ pendingCount }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center bg-warning text-white small-card">
+        <h6 class="mb-1">Pending</h6>
+        <h4 class="fw-bold mb-0">{{ pendingCount }}</h4>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center bg-success text-white">
-        <h6>Approved</h6>
-        <h3>{{ approvedCount }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center bg-success text-white small-card">
+        <h6 class="mb-1">Approved</h6>
+        <h4 class="fw-bold mb-0">{{ approvedCount }}</h4>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card shadow p-3 text-center bg-danger text-white">
-        <h6>Rejected</h6>
-        <h3>{{ rejectedCount }}</h3>
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 text-center bg-danger text-white small-card">
+        <h6 class="mb-1">Rejected</h6>
+        <h4 class="fw-bold mb-0">{{ rejectedCount }}</h4>
       </div>
     </div>
 
   </div>
 
-  <!-- Leave Table -->
+  <!-- Pending Requests -->
   <h5 class="mb-3 text-warning">New Leave Requests</h5>
 
-<table class="table table-bordered table-striped text-center">
+  <div class="card shadow-sm p-3 mb-4">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm text-center align-middle compact-table">
 
-  <thead class="table-dark">
-    <tr>
-      <th>Employee</th>
-      <th>From</th>
-      <th>To</th>
-      <th>Reason</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+        <thead class="table-dark">
+          <tr>
+            <th>Employee</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Reason</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <tr *ngFor="let leave of leaveList"
-        [hidden]="leave.status !== 'Pending'">
+        <tbody>
+          <tr *ngFor="let leave of leaveList"
+              [hidden]="leave.status !== 'Pending'">
 
-      <td>{{ leave.employeeName }}</td>
-      <td>{{ leave.fromDate | date }}</td>
-      <td>{{ leave.toDate | date }}</td>
-      <td>{{ leave.reason }}</td>
+            <td>{{ leave.employeeName }}</td>
+            <td>{{ leave.fromDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ leave.toDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ leave.reason }}</td>
 
-      <td>
-        <button class="btn btn-success btn-sm me-2"
-          (click)="approve(leave.leaveId)">
-          Approve
-        </button>
+            <td>
+              <button class="btn btn-success btn-sm me-1"
+                (click)="approve(leave.leaveId)">
+                Approve
+              </button>
 
-        <button class="btn btn-danger btn-sm"
-          (click)="reject(leave.leaveId)">
-          Reject
-        </button>
-      </td>
+              <button class="btn btn-danger btn-sm"
+                (click)="reject(leave.leaveId)">
+                Reject
+              </button>
+            </td>
 
-    </tr>
-  </tbody>
+          </tr>
+        </tbody>
 
-</table>
-<h5 class="mb-3">Processed Leaves (Approved / Rejected)</h5>
+      </table>
+    </div>
+  </div>
 
-<table class="table table-bordered table-striped text-center mb-4"
+  <!-- Processed Leaves -->
+  <h5 class="mb-3">Processed Leaves</h5>
+
+  <div class="card shadow-sm p-3"
        *ngIf="approvedCount > 0 || rejectedCount > 0">
 
-  <thead class="table-dark">
-    <tr>
-      <th>Employee</th>
-      <th>From</th>
-      <th>To</th>
-      <th>Reason</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm text-center align-middle compact-table">
 
-  <tbody>
-    <tr *ngFor="let leave of leaveList"
-        [hidden]="leave.status === 'Pending'">
+        <thead class="table-dark">
+          <tr>
+            <th>Employee</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Reason</th>
+            <th>Status</th>
+          </tr>
+        </thead>
 
-      <td>{{ leave.employeeName }}</td>
-      <td>{{ leave.fromDate | date }}</td>
-      <td>{{ leave.toDate | date }}</td>
-      <td>{{ leave.reason }}</td>
+        <tbody>
+          <tr *ngFor="let leave of leaveList"
+              [hidden]="leave.status === 'Pending'">
 
-      <td>
-        <span class="badge"
-          [ngClass]="{
-            'bg-success': leave.status === 'Approved',
-            'bg-danger': leave.status === 'Rejected'
-          }">
-          {{ leave.status }}
-        </span>
-      </td>
+            <td>{{ leave.employeeName }}</td>
+            <td>{{ leave.fromDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ leave.toDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ leave.reason }}</td>
 
-    </tr>
-  </tbody>
+            <td>
+              <span class="badge"
+                [ngClass]="{
+                  'bg-success': leave.status === 'Approved',
+                  'bg-danger': leave.status === 'Rejected'
+                }">
+                {{ leave.status }}
+              </span>
+            </td>
 
-</table>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
 
 </div>

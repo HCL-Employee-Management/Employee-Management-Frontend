@@ -2,10 +2,40 @@
   border-radius: 12px;
 }
 
-button {
-  font-weight: 600;
+/* Smaller summary card */
+.small-card h4 {
+  font-size: 20px;
 }
 
-.badge {
+.small-card h6 {
   font-size: 13px;
+}
+
+/* Buttons */
+button {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Table Header */
+.table th {
+  background-color: #212529;
+  color: white;
+}
+
+/* Compact Table */
+.compact-table th,
+.compact-table td {
+  padding: 6px 8px !important;
+  font-size: 13px;
+}
+
+.compact-table tbody tr {
+  height: 36px;
+}
+
+/* Badge */
+.badge {
+  font-size: 12px;
+  padding: 4px 8px;
 }
