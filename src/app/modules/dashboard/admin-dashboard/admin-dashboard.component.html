@@ -1,1 +1,63 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-page">
+
+  <!-- Title -->
+  <h2 class="dashboard-title">Admin Dashboard</h2>
+
+  <!-- Top Summary Cards -->
+  <div class="dashboard-cards">
+
+    <div class="dashboard-card">
+      <p>Total Employees</p>
+      <h2>{{ totalEmployees }}</h2>
+    </div>
+
+    <div class="dashboard-card">
+      <p>Present Today</p>
+      <h2>{{ presentToday }}</h2>
+    </div>
+
+    <div class="dashboard-card">
+      <p>Pending Leaves</p>
+      <h2>{{ pendingLeaves }}</h2>
+    </div>
+
+    <div class="dashboard-card">
+      <p>Salary Disbursed</p>
+      <h2>₹{{ salaryPaid | number }}</h2>
+    </div>
+
+  </div>
+
+  <!-- Progress Section -->
+  <div class="dashboard-progress">
+
+    <div class="progress-card">
+      <h3>Attendance Rate</h3>
+      <h1>{{ attendancePercentage }}%</h1>
+      <div class="progress-bar">
+        <div class="progress-fill"
+             [style.width.%]="attendancePercentage"></div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <h3>Leave Approval</h3>
+      <h1>{{ leaveApprovalPercentage }}%</h1>
+      <div class="progress-bar">
+        <div class="progress-fill"
+             [style.width.%]="leaveApprovalPercentage"></div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <h3>Salary Paid</h3>
+      <h1>{{ salaryPercentage }}%</h1>
+      <div class="progress-bar">
+        <div class="progress-fill"
+             [style.width.%]="salaryPercentage"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,78 @@
+.dashboard-page {
+  margin-left: 240px;
+  padding: 30px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* Smaller title */
+.dashboard-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* Bigger cards like Payroll page */
+.dashboard-cards {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 260px;   /* Increased size */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.dashboard-card p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.dashboard-card h2 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+/* Progress Section */
+.dashboard-progress {
+  display: flex;
+  gap: 25px;
+}
+
+.progress-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;   /* Bigger width */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.progress-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.progress-card h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  background: #e0e0e0;
+  height: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: #2d6cdf;
+  height: 10px;
+  border-radius: 6px;
+  transition: 0.4s ease;
+}
