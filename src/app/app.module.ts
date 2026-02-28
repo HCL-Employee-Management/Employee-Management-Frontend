@@ -8,6 +8,10 @@ import {HttpClientModule} from '@angular/common/http';
 import { AttendanceComponent } from './modules/attendance/attendance/attendance.component';
 
 
+
+
+import { DummyLoginComponent } from './modules/dummy-login/dummy-login.component';
+
 import { LeaveComponent } from './modules/leave/leave/leave.component';
 import { PayrollComponent } from './modules/payroll/payroll/payroll.component';
 import { DashboardComponent } from './modules/dashboard/dashboard/employee-dashboard.component';
@@ -16,8 +20,8 @@ import { AdminLeaveComponent } from './modules/leave/admin-leave/admin-leave.com
 import { PayslipComponent } from './modules/payslip/payslip.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LoginComponent } from './modules/auth/login/login.component';
-import { CommonModule } from '@angular/common';
 import { AdminAttendanceComponent } from './modules/attendance/admin-attendance/admin-attendance.component';
+import { AdminDashboardModule } from './modules/dashboard/admin-dashboard/admin-dashboard.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,7 @@ import { AdminAttendanceComponent } from './modules/attendance/admin-attendance/
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    AdminDashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

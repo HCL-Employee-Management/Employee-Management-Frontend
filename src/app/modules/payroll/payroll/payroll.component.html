@@ -1,27 +1,107 @@
 <div class="page">
-  <h2>Payroll Management</h2>
 
+  <h2 class="title">Payroll Management</h2>
+
+  <!-- Summary Cards -->
+  <div class="cards">
+
+    <div class="card">
+      <p>Total Payrolls</p>
+      <h2>{{ payrollList.length }}</h2>
+    </div>
+
+    <div class="card">
+      <p>Total Salary Paid</p>
+      <h2>₹{{ totalPaid | number }}</h2>
+    </div>
+
+    <div class="card">
+      <p>Year</p>
+      <h2>{{ year }}</h2>
+    </div>
+
+  </div>
+
+  <!-- Generate Payroll Section -->
+  <div class="generate-section">
+
+   Month: <input type="text"
+           placeholder="Month (January)"
+           [(ngModel)]="month">
+
+    Year:<input type="number"
+           placeholder="Year"
+           [(ngModel)]="year">
+
+    Bonus<input type="number"
+           placeholder="Bonus ₹"
+           [(ngModel)]="bonus">
+
+    <button class="generate-btn" (click)="generate()">
+      Generate Payroll
+    </button>
+
+    <button class="payall-btn" (click)="payAll()">
+      Pay All
+    </button>
+
+  </div>
+
+  <!-- Payroll Table -->
   <table>
+
     <thead>
       <tr>
         <th>Employee</th>
-        <th>Basic</th>
+        <th>Month</th>
+        <th>Basic Salary</th>
         <th>Leaves</th>
         <th>Deduction</th>
         <th>Bonus</th>
-        <th>Net</th>
+        <th>Net Salary</th>
+        <th>Action</th>
       </tr>
     </thead>
 
     <tbody>
+
       <tr *ngFor="let p of payrollList">
-        <td>{{p.employeeId}}</td>
-        <td>₹{{p.basicSalary | number}}</td>
-        <td>{{p.leaveDays}}</td>
-        <td class="red">-₹{{p.deduction | number}}</td>
-        <td class="green">+₹{{p.bonus | number}}</td>
-        <td><b>₹{{p.netSalary | number}}</b></td>
+
+        <!-- Employee Column -->
+        <td>
+          <strong>{{ p.employeeId }}</strong> -
+          {{ p.firstName }} {{ p.lastName }}
+        </td>
+
+        <td>{{ p.month }}</td>
+
+        <td>₹{{ p.basicSalary | number }}</td>
+
+        <td>{{ p.leaveDays }}</td>
+
+        <td class="red">
+          - ₹{{ p.deduction | number }}
+        </td>
+
+        <td class="green">
+          + ₹{{ p.bonus | number }}
+        </td>
+
+        <td class="net">
+          ₹{{ p.netSalary | number }}
+        </td>
+
+        <td>
+          <button class="pay-btn"
+                  (click)="paySalary(p.month)">
+            Pay
+          </button>
+        </td>
+
       </tr>
+
     </tbody>
+
   </table>
+
 </div>
