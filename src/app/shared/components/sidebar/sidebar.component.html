@@ -1,0 +1,36 @@
+<div class="sidebar d-flex flex-column">
+
+  <h2 class="mb-4">EmpPay</h2>
+
+  <!-- Menu Links -->
+  <div class="flex-grow-1">
+
+    <!-- ADMIN MENU -->
+    <ng-container *ngIf="role === 'Admin'">
+
+      <a routerLink="/admin/dashboard">Dashboard</a>
+      <a routerLink="/admin/employees">Employees</a>
+      <a routerLink="/admin/attendance">Attendance</a>
+      <a routerLink="/admin/leave-requests">Leave Requests</a>
+      <a routerLink="/admin/payroll">Payroll</a>
+
+    </ng-container>
+
+    <!-- EMPLOYEE MENU -->
+    <ng-container *ngIf="role === 'Employee'">
+
+      <a routerLink="/employee/dashboard">Dashboard</a>
+      <a routerLink="/employee/attendance">Attendance</a>
+      <a routerLink="/employee/leave">Leave</a>
+      <a routerLink="/employee/payslip">Payslip</a>
+
+    </ng-container>
+
+  </div>
+
+  <!-- Logout Button at Bottom -->
+  <button class="btn btn-danger mt-auto" (click)="logout()">
+    Logout
+  </button>
+
+</div>
