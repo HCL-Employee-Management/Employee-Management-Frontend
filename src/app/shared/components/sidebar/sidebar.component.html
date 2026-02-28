@@ -8,7 +8,7 @@
     <!-- ADMIN MENU -->
     <ng-container *ngIf="role === 'Admin'">
 
-      <a routerLink="/admin/dashboard">Dashboard</a>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
       <a routerLink="/admin/employees">Employees</a>
       <a routerLink="/admin/attendance">Attendance</a>
       <a routerLink="/admin/leave-requests">Leave Requests</a>
@@ -19,7 +19,7 @@
     <!-- EMPLOYEE MENU -->
     <ng-container *ngIf="role === 'Employee'">
 
-      <a routerLink="/employee/dashboard">Dashboard</a>
+      <a routerLink="/employee/dashboard" routerLinkActive="active">Dashboard</a>
       <a routerLink="/employee/attendance">Attendance</a>
       <a routerLink="/employee/leave">Leave</a>
       <a routerLink="/employee/payslip">Payslip</a>

@@ -1,113 +1,120 @@
 <div class="container mt-4">
 
-  <h2 class="text-primary mb-4">Leave Management</h2>
+  <h2 class="mb-1">Leave Management</h2>
+  <p class="text-muted mb-3">Track your leave history</p>
 
-  <!-- Leave Summary Card -->
-  <div class="card shadow-sm p-4 mb-4">
-    <h5>Leave Summary</h5>
-    <p><strong>Total Leaves Taken:</strong> {{ leaveList.length }}</p>
+  <!-- Summary -->
+  <div class="row mb-3">
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-3 small-card">
+        <h6 class="text-muted mb-1">Total Leaves Taken</h6>
+        <h4 class="fw-bold mb-0">{{ leaveList.length }}</h4>
+      </div>
+    </div>
   </div>
 
-  <!-- Apply Leave Form -->
+  <!-- Apply Button -->
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary py-2 px-3"
+            data-bs-toggle="modal"
+            data-bs-target="#applyLeaveModal">
+      Apply Leave
+    </button>
+  </div>
 
-<div class="d-flex justify-content-end mb-3">
-  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applyLeaveModal">
-    Apply Leave
-  </button>
-</div>
   <!-- Leave History -->
-  <div class="card shadow-sm p-4">
+  <div class="card shadow-sm p-3">
     <h5 class="mb-3">Leave History</h5>
 
-    <table class="table table-striped">
-<thead>
-  <tr>
-    <th>From</th>
-    <th>To</th>
-    <th>Reason</th>
-    <th>Applied Date</th>
-    <th>Status</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let leave of leaveList">
-
-    <td>{{ leave.fromDate | date:'dd-MM-yyyy' }}</td>
-    <td>{{ leave.toDate | date:'dd-MM-yyyy' }}</td>
-    <td>{{ leave.reason }}</td>
-    <td>{{ leave.appliedDate | date:'dd-MM-yyyy' }}</td>
-
-    <td>
-      <span class="badge"
-        [ngClass]="{
-          'bg-warning': leave.status === 'Pending',
-          'bg-success': leave.status === 'Approved',
-          'bg-danger': leave.status === 'Rejected'
-        }">
-        {{ leave.status }}
-      </span>
-    </td>
-
-  </tr>
-</tbody>
-    </table>
-
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm text-center align-middle compact-table">
+        <thead class="table-dark">
+          <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Reason</th>
+            <th>Applied Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leave of leaveList">
+            <td>{{ leave.fromDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ leave.toDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>{{ leave.appliedDate | date:'dd-MM-yyyy' }}</td>
+            <td>
+              <span class="badge"
+                [ngClass]="{
+                  'bg-warning': leave.status === 'Pending',
+                  'bg-success': leave.status === 'Approved',
+                  'bg-danger': leave.status === 'Rejected'
+                }">
+                {{ leave.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Apply Leave Modal -->
-<div class="modal fade" id="applyLeaveModal" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+  <div class="modal fade" id="applyLeaveModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title">Apply Leave</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+        <div class="modal-header">
+          <h5 class="modal-title">Apply Leave</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
 
-      <div class="modal-body">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="small">From Date</label>
+              <input type="date"
+                     class="form-control form-control-sm"
+                     [(ngModel)]="fromDate"
+                     [min]="todayDate"
+                     (change)="onFromDateChange()">
+            </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <label>From Date</label>
-            <input type="date"
-       class="form-control"
-       [(ngModel)]="fromDate"
-       [min]="todayDate"
-       (change)="onFromDateChange()">
-          </div>
+            <div class="col-md-4">
+              <label class="small">To Date</label>
+              <input type="date"
+                     class="form-control form-control-sm"
+                     [(ngModel)]="toDate"
+                     [min]="fromDate || todayDate">
+            </div>
 
-          <div class="col-md-4">
-            <label>To Date</label>
-            <input type="date"
-       class="form-control"
-       [(ngModel)]="toDate"
-       [min]="fromDate || todayDate">
-          </div>
-
-          <div class="col-md-4">
-            <label>Reason</label>
-            <input type="text" class="form-control" [(ngModel)]="reason">
+            <div class="col-md-4">
+              <label class="small">Reason</label>
+              <input type="text"
+                     class="form-control form-control-sm"
+                     [(ngModel)]="reason">
+            </div>
           </div>
         </div>
 
+        <div class="modal-footer py-2">
+          <button class="btn btn-secondary btn-sm"
+                  data-bs-dismiss="modal">
+            Cancel
+          </button>
+
+          <button class="btn btn-success btn-sm"
+                  [disabled]="isSubmitting"
+                  (click)="applyLeave()">
+            <span *ngIf="isSubmitting"
+                  class="spinner-border spinner-border-sm">
+            </span>
+            Submit Leave
+          </button>
+        </div>
+
       </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancel
-        </button>
-
-        <button class="btn btn-success"
-        [disabled]="isSubmitting"
-        (click)="applyLeave()">
-
-  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
-  Submit Leave
-
-</button>
-      </div>
-
     </div>
   </div>
-</div>
+
 </div>

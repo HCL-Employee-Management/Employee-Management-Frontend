@@ -41,8 +41,8 @@ localStorage.setItem('role', res.role);
           this.router.navigate(['/admin/dashboard']);
         } 
         else if (res.role === 'Employee') {
-          this.router.navigate(['/employee/attendance']);
-        } 
+  this.router.navigate(['/employee/dashboard']);
+} 
         else {
           this.router.navigate(['/login']);
         }

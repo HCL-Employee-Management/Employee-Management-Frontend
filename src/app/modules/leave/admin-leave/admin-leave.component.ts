@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LeaveService } from 'src/app/core/services/leave.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-leave',
   templateUrl: './admin-leave.component.html',
@@ -46,16 +46,68 @@ export class AdminLeaveComponent implements OnInit {
     ).length;
   }
 
-  approve(id: number) {
-    this.leaveService.approveLeave(id).subscribe(() => {
-      this.loadLeaves();
-    });
-  }
+ approve(id: number) {
 
-  reject(id: number) {
-    this.leaveService.rejectLeave(id).subscribe(() => {
-      this.loadLeaves();
-    });
-  }
+  Swal.fire({
+    title: 'Approve Leave?',
+    text: 'Are you sure you want to approve this leave request?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#28a745',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Approve'
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.leaveService.approveLeave(id).subscribe(() => {
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Approved!',
+          text: 'Leave has been approved.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+
+        this.loadLeaves();
+      });
+
+    }
+
+  });
+}
+
+ reject(id: number) {
+
+  Swal.fire({
+    title: 'Reject Leave?',
+    text: 'Are you sure you want to reject this leave request?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'Yes, Reject'
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.leaveService.rejectLeave(id).subscribe(() => {
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Rejected!',
+          text: 'Leave has been rejected.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+
+        this.loadLeaves();
+      });
+
+    }
+
+  });
+}
 }
 

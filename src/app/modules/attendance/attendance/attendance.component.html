@@ -1,69 +1,68 @@
-
 <div class="container mt-4">
-<h2>My Attendance</h2>
-<p>Track your daily attendance</p>
-  <!-- Header -->
-<!-- Summary Cards -->
- <button class="btn btn-outline-primary" routerLink="/leave">
-  Leave Management
-</button>
-<div class="row mb-4">
 
-  <!-- Attendance % -->
-  <div class="col-md-4 mb-3">
-    <div class="card shadow-sm p-4">
-      <h6 class="text-muted">Attendance %</h6>
-      <h2 class="fw-bold">{{ attendancePercentage }}%</h2>
+  <h2 class="mb-1">My Attendance</h2>
+  <p class="text-muted mb-4">Track your daily attendance</p>
+
+  <!-- Summary Cards -->
+  <div class="row mb-3">
+
+    <!-- Attendance % -->
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-3 small-card">
+        <h6 class="text-muted mb-1">Attendance %</h6>
+        <h4 class="fw-bold mb-0">{{ attendancePercentage }}%</h4>
+      </div>
     </div>
-  </div>
 
-  <!-- Present Days -->
-  <div class="col-md-4 mb-3">
-    <div class="card shadow-sm p-4">
-      <h6 class="text-muted">Present Days</h6>
-      <h2 class="fw-bold">{{ presentDays }}</h2>
+    <!-- Present Days -->
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-3 small-card">
+        <h6 class="text-muted mb-1">Present Days</h6>
+        <h4 class="fw-bold mb-0">{{ presentDays }}</h4>
+      </div>
     </div>
-  </div>
 
-  <!-- Total Tracked -->
-  <div class="col-md-4 mb-3">
-    <div class="card shadow-sm p-4">
-      <h6 class="text-muted">Total Tracked</h6>
-      <h2 class="fw-bold">{{ attendanceList.length }}</h2>
+    <!-- Total Tracked -->
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-3 small-card">
+        <h6 class="text-muted mb-1">Total Tracked</h6>
+        <h4 class="fw-bold mb-0">{{ workingDaysTillToday }}</h4>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
 
   <!-- Action Buttons -->
-  <div class="card shadow p-4 mb-4">
+  <div class="card shadow-sm p-3 mb-4 action-card">
     <div class="row text-center">
-      <div class="col-md-6 mb-3">
+
+      <div class="col-md-6 mb-2">
         <button 
-          class="btn btn-success w-100 py-3"
+          class="btn btn-success w-100 py-2"
           [disabled]="todayStatus !== 'Absent'"
           (click)="login()">
           Mark Login
         </button>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6 mb-2">
         <button 
-          class="btn btn-danger w-100 py-3"
+          class="btn btn-danger w-100 py-2"
           [disabled]="todayStatus !== 'Logged In'"
           (click)="logout()">
           Mark Logout
         </button>
       </div>
+
     </div>
   </div>
 
   <!-- Attendance History -->
-  <div class="card shadow-sm p-4">
+  <div class="card shadow-sm p-3">
     <h5 class="mb-3">Attendance History</h5>
 
     <div class="table-responsive">
-      <table class="table table-bordered table-striped text-center">
+      <table class="table table-bordered table-striped table-sm text-center align-middle compact-table">
         <thead class="table-dark">
           <tr>
             <th>Date</th>
@@ -73,38 +72,40 @@
             <th>Status</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let record of attendanceList">
-  <td>{{ record.date | date:'dd-MM-yyyy' }}</td>
-  <td>{{ record.loginTime | date:'shortTime' }}</td>
-  <td>{{ record.logoutTime | date:'shortTime' }}</td>
-  <td>
-    <span *ngIf="record.totalHours; else dash">
-      {{ record.totalHours | number:'1.2-2' }}
-    </span>
-    <ng-template #dash>-</ng-template>
-  </td>
+            <td>{{ record.date | date:'dd-MM-yyyy' }}</td>
+            <td>
+  {{ record.loginTime ? (record.loginTime | date:'shortTime') : '----' }}
+</td>
 
-  <!-- Status Column -->
-  <td>
-    <span class="badge"
-      [ngClass]="{
-        'bg-success': record.logoutTime,
-        'bg-warning': record.loginTime && !record.logoutTime,
-        'bg-danger': !record.loginTime
-      }">
-      {{
-        record.logoutTime ? 'Present' :
-        record.loginTime ? 'Logged In' :
-        'Absent'
-      }}
-    </span>
-  </td>
-</tr>
+<td>
+  {{ record.logoutTime ? (record.logoutTime | date:'shortTime') : '----' }}
+</td>
+            <td>
+              <span *ngIf="record.totalHours; else dash">
+                {{ record.totalHours | number:'1.2-2' }}
+              </span>
+              <ng-template #dash>-</ng-template>
+            </td>
+
+            <td>
+              <span class="badge"
+                [ngClass]="{
+                  'bg-success': record.status === 'Present',
+                  'bg-warning': record.status === 'Half Day',
+                  'bg-danger': record.status === 'Absent'
+                }">
+                {{ record.status }}
+              </span>
+            </td>
+
+          </tr>
         </tbody>
+
       </table>
     </div>
-
   </div>
 
 </div>

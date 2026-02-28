@@ -6,7 +6,12 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { AttendanceComponent } from './modules/attendance/attendance/attendance.component';
+
+
+
+
 import { DummyLoginComponent } from './modules/dummy-login/dummy-login.component';
+
 import { LeaveComponent } from './modules/leave/leave/leave.component';
 import { PayrollComponent } from './modules/payroll/payroll/payroll.component';
 import { DashboardComponent } from './modules/dashboard/dashboard/employee-dashboard.component';
@@ -21,7 +26,7 @@ import { AdminDashboardModule } from './modules/dashboard/admin-dashboard/admin-
   declarations: [
     AppComponent,
     AttendanceComponent,
-    DummyLoginComponent,
+
     LeaveComponent,
     PayrollComponent,
     DashboardComponent,

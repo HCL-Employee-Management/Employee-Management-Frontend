@@ -1,14 +1,17 @@
-.sidebar {
-  width: 220px;
-  height: 100vh;
-}
-.content {
-  background-color: #f4f6f9;
+.layout {
+  display: flex;
   min-height: 100vh;
 }
-.card {
-  border-radius: 12px;
+
+/* Sidebar */
+app-sidebar {
+  width: 180px;   /* Reduced width */
+  flex-shrink: 0;
 }
-.progress {
-  height: 8px;
+
+/* Content */
+.content {
+  flex: 1;        /* Takes remaining space automatically */
+  padding: 30px;
+  background-color: #f4f6f9;
 }
