@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -49,8 +49,13 @@ localStorage.setItem('role', res.role);
 
       },
       error: (err: any) => {
-        this.errorMessage = err.error || "Login failed";
-      }
+  Swal.fire({
+    icon: 'error',
+    title: 'Login Failed',
+    text: err.error?.message || "Invalid email or password",
+    confirmButtonColor: '#d33'
+  });
+}
     });
 }
 }
