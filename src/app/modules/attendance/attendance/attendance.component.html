@@ -93,10 +93,12 @@
             <td>
               <span class="badge"
                 [ngClass]="{
-                  'bg-success': record.status === 'Present',
-                  'bg-warning': record.status === 'Half Day',
-                  'bg-danger': record.status === 'Absent'
-                }">
+  'bg-success': record.status === 'Present',
+  'bg-warning': record.status === 'Half Day',
+  'bg-danger': record.status === 'Absent',
+  'bg-primary': record.status === 'Logged In',
+  'bg-info': record.status === 'Logged Out'
+}">
                 {{ record.status }}
               </span>
             </td>

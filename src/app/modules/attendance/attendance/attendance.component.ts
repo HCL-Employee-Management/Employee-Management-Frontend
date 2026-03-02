@@ -98,9 +98,18 @@ logout() {
     });
 }
 calculatePresentDays() {
-  this.presentDays = this.attendanceList.filter(
-    x => x.loginTime
-  ).length;
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+
+  this.presentDays = this.attendanceList.filter(x => {
+    const date = new Date(x.date);
+    return (
+      date.getMonth() === month &&
+      date.getFullYear() === year &&
+      x.status === 'Present'
+    );
+  }).length;
 }
 
   loadPercentage() {

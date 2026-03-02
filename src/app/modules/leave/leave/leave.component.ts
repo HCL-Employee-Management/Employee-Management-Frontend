@@ -11,11 +11,13 @@ export class LeaveComponent implements OnInit {
 
   employeeId!: number;
   leaveList: any[] = [];
-
+  // totalRequested: number = 0;
+  // totalApproved: number = 0;
   fromDate!: string;
   toDate!: string;
   reason!: string;
-
+  totalRequestedDays: number = 0;
+totalApprovedDays: number = 0;
   todayDate: string = '';
   isSubmitting: boolean = false;
 
@@ -29,12 +31,33 @@ export class LeaveComponent implements OnInit {
     this.todayDate = today.toISOString().split('T')[0];
   }
 
-  loadLeaves() {
-    this.leaveService.getEmployeeLeaves(this.employeeId)
-      .subscribe(data => {
-        this.leaveList = data;
+loadLeaves() {
+  this.leaveService.getEmployeeLeaves(this.employeeId)
+    .subscribe(data => {
+      this.leaveList = data;
+
+      this.totalRequestedDays = 0;
+      this.totalApprovedDays = 0;
+
+      this.leaveList.forEach(l => {
+
+        const from = new Date(l.fromDate);
+        const to = new Date(l.toDate);
+
+        const diffTime = to.getTime() - from.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+        // Add to requested
+        this.totalRequestedDays += diffDays;
+
+        // Add to approved only
+        if (l.status === 'Approved') {
+          this.totalApprovedDays += diffDays;
+        }
+
       });
-  }
+    });
+}
 
   onFromDateChange() {
     if (this.toDate && this.toDate < this.fromDate) {
