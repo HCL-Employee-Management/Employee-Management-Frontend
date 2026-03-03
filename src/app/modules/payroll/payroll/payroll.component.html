@@ -1,107 +1,168 @@
-<div class="page">
+<div class="container mt-4 payroll-container">
 
-  <h2 class="title">Payroll Management</h2>
+  <!-- ================= HEADER ================= -->
+  <div class="header">
+  <div>
+    <h3>Payroll Management</h3>
+    <p class="sub">{{ month }} {{ year }}</p>
+  </div>
 
-  <!-- Summary Cards -->
-  <div class="cards">
+  <div>
+    
 
-    <div class="card">
-      <p>Total Payrolls</p>
-      <h2>{{ payrollList.length }}</h2>
+    <button class="pay-all-btn" (click)="payAll()">
+      Pay All Pending
+    </button>
+  </div>
+</div>
+
+
+  <!-- ================= SUMMARY CARDS ================= -->
+  <div class="summary-cards">
+
+    <div class="card-box">
+      <p>Total Paid</p>
+      <h4>₹{{ totalPaid | number }}</h4>
     </div>
 
-    <div class="card">
-      <p>Total Salary Paid</p>
-      <h2>₹{{ totalPaid | number }}</h2>
+    <div class="card-box">
+      <p>Pending</p>
+      <h4>₹{{ totalPending | number }}</h4>
     </div>
 
-    <div class="card">
-      <p>Year</p>
-      <h2>{{ year }}</h2>
+    <div class="card-box">
+      <p>Paid %</p>
+      <h4>{{ paidPercent }}%</h4>
     </div>
 
   </div>
 
-  <!-- Generate Payroll Section -->
-  <div class="generate-section">
 
-   Month: <input type="text"
-           placeholder="Month (January)"
-           [(ngModel)]="month">
+  <!-- ================= BONUS FOR ALL ================= -->
+  <div class="bonus-section">
+    <h5>Bonus for All ({{ month }})</h5>
 
-    Year:<input type="number"
-           placeholder="Year"
-           [(ngModel)]="year">
+    <div class="bonus-actions">
+      <input type="number"
+             [(ngModel)]="bonusAmount"
+             placeholder="Enter Amount">
 
-    Bonus<input type="number"
-           placeholder="Bonus ₹"
-           [(ngModel)]="bonus">
+      <button (click)="applyBonusToAll()">
+        Apply to All
+      </button>
+    </div>
+  </div>
 
-    <button class="generate-btn" (click)="generate()">
-      Generate Payroll
-    </button>
 
-    <button class="payall-btn" (click)="payAll()">
-      Pay All
-    </button>
+  <!-- ========================================================= -->
+  <!-- ================= PENDING PAYROLL TABLE ================= -->
+  <!-- ========================================================= -->
+
+  <div class="table-section" *ngIf="pendingPayrolls.length > 0">
+
+    <h5 class="table-title">
+      Pending Payroll ({{ pendingPayrolls.length }})
+    </h5>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Basic</th>
+          <th>Leaves</th>
+          <th>Deduction</th>
+          <th>Bonus</th>
+          <th>Net</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let emp of pendingPayrolls">
+
+          <td>{{ emp.employeeName }}</td>
+          <td>₹{{ emp.basicSalary | number }}</td>
+          <td>{{ emp.leaveDays }}</td>
+          <td class="red">-₹{{ emp.deduction | number }}</td>
+          <td class="green">+₹{{ emp.bonus | number }}</td>
+          <td><b>₹{{ emp.netSalary | number }}</b></td>
+
+          <td>
+            <span class="status pending">
+              Pending
+            </span>
+          </td>
+
+          <td class="actions">
+
+            <input type="number"
+                   #bonusInput
+                   placeholder="Bonus">
+
+            <button class="add-btn"
+                    (click)="addBonus(emp, bonusInput)">
+              Add
+            </button>
+
+            <button class="pay-btn"
+                    (click)="pay(emp)">
+              Pay
+            </button>
+
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 
-  <!-- Payroll Table -->
-  <table>
 
-    <thead>
-      <tr>
-        <th>Employee</th>
-        <th>Month</th>
-        <th>Basic Salary</th>
-        <th>Leaves</th>
-        <th>Deduction</th>
-        <th>Bonus</th>
-        <th>Net Salary</th>
-        <th>Action</th>
-      </tr>
-    </thead>
+  <!-- ========================================================= -->
+  <!-- ================= PAID PAYROLL TABLE ==================== -->
+  <!-- ========================================================= -->
 
-    <tbody>
+  <div class="table-section paid-table"
+       *ngIf="paidPayrolls.length > 0">
 
-      <tr *ngFor="let p of payrollList">
+    <h5 class="table-title">
+      Paid Employees ({{ paidPayrolls.length }})
+    </h5>
 
-        <!-- Employee Column -->
-        <td>
-          <strong>{{ p.employeeId }}</strong> -
-          {{ p.firstName }} {{ p.lastName }}
-        </td>
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Basic</th>
+          <th>Leaves</th>
+          <th>Deduction</th>
+          <th>Bonus</th>
+          <th>Net</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
-        <td>{{ p.month }}</td>
+      <tbody>
+        <tr *ngFor="let emp of paidPayrolls">
 
-        <td>₹{{ p.basicSalary | number }}</td>
+          <td>{{ emp.employeeName }}</td>
+          <td>₹{{ emp.basicSalary | number }}</td>
+          <td>{{ emp.leaveDays }}</td>
+          <td class="red">-₹{{ emp.deduction | number }}</td>
+          <td class="green">+₹{{ emp.bonus | number }}</td>
+          <td><b>₹{{ emp.netSalary | number }}</b></td>
 
-        <td>{{ p.leaveDays }}</td>
+          <td>
+            <span class="status paid">
+              Paid
+            </span>
+          </td>
 
-        <td class="red">
-          - ₹{{ p.deduction | number }}
-        </td>
+        </tr>
+      </tbody>
+    </table>
 
-        <td class="green">
-          + ₹{{ p.bonus | number }}
-        </td>
-
-        <td class="net">
-          ₹{{ p.netSalary | number }}
-        </td>
-
-        <td>
-          <button class="pay-btn"
-                  (click)="paySalary(p.month)">
-            Pay
-          </button>
-        </td>
-
-      </tr>
-
-    </tbody>
-
-  </table>
+  </div>
 
 </div>

@@ -1,0 +1,127 @@
+.container {
+  padding: 20px;
+  background: #f5f6f8;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.print-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.payslip-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+}
+
+.card-header {
+  background: #1e3a8a;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+.employee-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.label {
+  color: gray;
+  font-size: 13px;
+}
+
+.salary-details .row {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.net-salary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.status-badge.pending {
+  background: #ffe7c2;
+  color: #c77b00;
+}
+
+.status-badge.paid {
+  background: #d4f5df;
+  color: green;
+}
+
+.history-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  text-align: left;
+  color: #6b7280;
+  padding: 10px 0;
+}
+
+td {
+  padding: 10px 0;
+}
+
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.badge.paid {
+  background: #d4f5df;
+  color: green;
+}
+
+.badge.pending {
+  background: #ffe7c2;
+  color: #c77b00;
+}
+
+@media print {
+  .print-btn {
+    display: none;
+  }
+}
