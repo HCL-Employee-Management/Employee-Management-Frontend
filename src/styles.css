@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@media print {
+
+  /* Hide entire sidebar (including logout) */
+  .sidebar {
+    display: none !important;
+  }
+
+  /* Hide salary history */
+  .history-card {
+    display: none !important;
+  }
+
+  /* Hide top header with print button */
+  .top-bar {
+    display: none !important;
+  }
+
+  /* Hide any buttons */
+  button {
+    display: none !important;
+  }
+
+  /* Remove background colors */
+  body {
+    background: white !important;
+  }
+
+  /* Show only payslip card properly */
+  .payslip-card {
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+}

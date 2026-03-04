@@ -20,7 +20,7 @@
 .payslip-card {
   background: white;
   border-radius: 12px;
-  padding: 20px;
+  padding: 50px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   margin-bottom: 25px;
 }
@@ -43,20 +43,33 @@
   font-size: 13px;
 }
 
-.salary-details .row {
+.salary-details {
+  margin: 20px 0;
+}
+
+.salary-row {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 15px;
 }
 
-.red {
-  color: red;
+.salary-row .label {
+  font-weight: 500;
 }
 
-.green {
-  color: green;
+.salary-row .value {
+  font-weight: 600;
 }
 
+.salary-row.red {
+  color: #d32f2f;
+}
+
+.salary-row.green {
+  color: #2e7d32;
+}
 .net-salary {
   display: flex;
   justify-content: space-between;
@@ -96,8 +109,9 @@ table {
 
 th {
   text-align: left;
-  color: #6b7280;
-  padding: 10px 0;
+  color: #fafafa;
+  padding: 10px 10px;
+  background-color: #1e3a8a;
 }
 
 td {
@@ -121,7 +135,28 @@ td {
 }
 
 @media print {
-  .print-btn {
-    display: none;
+
+  body * {
+    visibility: hidden;
+  }
+
+  .payslip-card,
+  .payslip-card * {
+    visibility: visible;
+  }
+
+  .payslip-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+    .sidebar {
+    display: none !important;
+  }
+
+  .history-card,
+  .print-btn{
+    display: none !important;
   }
 }
