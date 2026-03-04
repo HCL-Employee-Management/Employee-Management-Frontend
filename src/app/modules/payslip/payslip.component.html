@@ -15,41 +15,42 @@
     </div>
 
     <div class="employee-info">
-      <div>
-        <p class="label">Employee</p>
-        <p>{{ employee.name }}</p>
+  <div>
+    <p class="label">Employee</p>
+    <p>{{ employee.name }}</p>
 
-        <p class="label">Designation</p>
-        <p>{{ employee.designation }}</p>
-      </div>
+   <p class="label">Email</p>
+<p>{{ employee.email }}</p>
+  </div>
 
-      <div>
-        <p class="label">Department</p>
-        <p>{{ employee.department }}</p>
+  <div>
+    <p class="label">Department</p>
+    <p>{{ employee.department }}</p>
 
-        <p class="label">Employee ID</p>
-        <p>{{ employee.employeeId }}</p>
-      </div>
-    </div>
+    <p class="label">Employee ID</p>
+    <p>{{ employee.employeeId }}</p>
+  </div>
+</div>
 
     <hr>
-
     <div class="salary-details">
-      <div class="row">
-        <span>Basic Salary</span>
-        <span>₹{{ basicSalary | number }}</span>
-      </div>
 
-      <div class="row red">
-        <span>Leave Deduction ({{ leaveDays }} days)</span>
-        <span>-₹{{ deduction | number }}</span>
-      </div>
+  <div class="salary-row">
+    <div class="label">Basic Salary</div>
+    <div class="value">₹{{ basicSalary | number }}</div>
+  </div>
 
-      <div class="row green">
-        <span>Bonus</span>
-        <span>+₹{{ bonus | number }}</span>
-      </div>
-    </div>
+  <div class="salary-row red">
+    <div class="label">Leave Deduction ({{ leaveDays }} days)</div>
+    <div class="value">-₹{{ deduction | number }}</div>
+  </div>
+
+  <div class="salary-row green">
+    <div class="label">Bonus</div>
+    <div class="value">+₹{{ bonus | number }}</div>
+  </div>
+
+</div>
 
     <hr>
 
