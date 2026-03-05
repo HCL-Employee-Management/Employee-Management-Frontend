@@ -94,22 +94,34 @@ logout() {
     .subscribe(data => {
       this.attendanceList = data;
       this.calculatePresentDays();
-      this.setTodayStatus();
+      this.loadHistory();
+this.loadPercentage();
+this.setTodayStatus();
     });
 }
 calculatePresentDays() {
+
   const today = new Date();
   const month = today.getMonth();
   const year = today.getFullYear();
 
-  this.presentDays = this.attendanceList.filter(x => {
+  let count = 0;
+
+  this.attendanceList.forEach(x => {
+
     const date = new Date(x.date);
-    return (
-      date.getMonth() === month &&
-      date.getFullYear() === year &&
-      x.status === 'Present'
-    );
-  }).length;
+
+    if (date.getMonth() === month && date.getFullYear() === year) {
+
+      if (x.status === 'Present')
+        count += 1;
+
+      else if (x.status === 'Half Day')
+        count += 0.5;
+    }
+  });
+
+  this.presentDays = count;
 }
 
   loadPercentage() {
