@@ -1,103 +1,109 @@
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="top-bar">
-    <h3>Payslip — {{ month }} {{ year }}</h3>
-    <button class="print-btn" (click)="printPayslip()">Print</button>
-  </div>
+<div class="top-bar">
+  <h3>Payslip — {{ month }} {{ year }}</h3>
+  <button class="print-btn" (click)="printPayslip()">Print</button>
+</div>
 
-  <!-- PAYSLIP CARD -->
-  <div class="payslip-card">
+<div class="payslip-card">
 
-    <div class="card-header">
-      <h4>EmpPayroll - Payslip</h4>
-      <span>{{ month }} {{ year }}</span>
-    </div>
+<div class="card-header">
+  <h4>EmpPayroll - Payslip</h4>
+  <span>{{ month }} {{ year }}</span>
+</div>
 
-    <div class="employee-info">
-  <div>
-    <p class="label">Employee</p>
-    <p>{{ employee.name }}</p>
+<div class="employee-info">
 
-   <p class="label">Email</p>
+<div>
+<p class="label">Employee</p>
+<p>{{ employee.name }}</p>
+
+<p class="label">Email</p>
 <p>{{ employee.email }}</p>
-  </div>
-
-  <div>
-    <p class="label">Department</p>
-    <p>{{ employee.department }}</p>
-
-    <p class="label">Employee ID</p>
-    <p>{{ employee.employeeId }}</p>
-  </div>
 </div>
 
-    <hr>
-    <div class="salary-details">
+<div>
+<p class="label">Department</p>
+<p>{{ employee.department }}</p>
 
-  <div class="salary-row">
-    <div class="label">Basic Salary</div>
-    <div class="value">₹{{ basicSalary | number }}</div>
-  </div>
-
-  <div class="salary-row red">
-    <div class="label">Leave Deduction ({{ leaveDays }} days)</div>
-    <div class="value">-₹{{ deduction | number }}</div>
-  </div>
-
-  <div class="salary-row green">
-    <div class="label">Bonus</div>
-    <div class="value">+₹{{ bonus | number }}</div>
-  </div>
+<p class="label">Employee ID</p>
+<p>{{ employee.employeeId }}</p>
+</div>
 
 </div>
 
-    <hr>
+<hr>
 
-    <div class="net-salary">
-      <h4>Net Salary</h4>
-      <h4>₹{{ netSalary | number }}</h4>
-    </div>
+<div class="salary-details">
 
-    <div class="status-badge" [ngClass]="status.toLowerCase()">
-      {{ status }}
-    </div>
+<div class="salary-row">
+<div class="label">Basic Salary</div>
+<div class="value">₹{{ basicSalary | number }}</div>
+</div>
 
-  </div>
+<div class="salary-row red">
+<div class="label">Leave Deduction ({{ leaveDays }} days)</div>
+<div class="value">-₹{{ deduction | number }}</div>
+</div>
 
-  <!-- SALARY HISTORY -->
-  <div class="history-card">
-    <h4>Salary History</h4>
+<div class="salary-row green">
+<div class="label">Bonus</div>
+<div class="value">+₹{{ bonus | number }}</div>
+</div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Basic</th>
-          <th>Deduction</th>
-          <th>Bonus</th>
-          <th>Net</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+</div>
 
-      <tbody>
-        <tr *ngFor="let h of salaryHistory">
-          <td>{{ h.month }}</td>
-          <td>₹{{ h.basic | number }}</td>
-          <td class="red">-₹{{ h.deduction | number }}</td>
-          <td class="green">+₹{{ h.bonus | number }}</td>
-          <td><b>₹{{ h.net | number }}</b></td>
-          <td>
-            <span class="badge"
-              [ngClass]="h.status.toLowerCase()">
-              {{ h.status }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<hr>
 
-  </div>
+<div class="net-salary">
+<h4>Net Salary</h4>
+<h4>₹{{ netSalary | number }}</h4>
+</div>
+
+<div class="status-badge" [ngClass]="status.toLowerCase()">
+{{ status }}
+</div>
+
+</div>
+
+<div class="history-card">
+
+<h4>Salary History</h4>
+
+<table>
+
+<thead>
+<tr>
+<th>Month</th>
+<th>Basic</th>
+<th>Deduction</th>
+<th>Bonus</th>
+<th>Net</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let h of salaryHistory">
+<td>{{ h.month }}</td>
+<td>₹{{ h.basic | number }}</td>
+<td class="red">-₹{{ h.deduction | number }}</td>
+<td class="green">+₹{{ h.bonus | number }}</td>
+<td><b>₹{{ h.net | number }}</b></td>
+
+<td>
+<span class="badge" [ngClass]="h.status.toLowerCase()">
+{{ h.status }}
+</span>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
 
 </div>
